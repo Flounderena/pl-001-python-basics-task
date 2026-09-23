@@ -28,7 +28,7 @@ from .constants import (
 
 
 def read_current_millis(epoch_ms: int) -> int:
-    return time.time() - epoch_ms - EPOCH_MS_DEFAULT
+    return int(time.time()) * 1000 - epoch_ms - EPOCH_MS_DEFAULT
 
 
 def decode_timestamp_ms(snowflake_id: int, epoch_ms: int = EPOCH_MS_DEFAULT) -> int:
@@ -58,7 +58,7 @@ def generate_snowflake_id(
         print(f"sequence_id must be in [0, {SEQUENCE_ID_MAX}], but it is {sequence_id}")
         return None
 
-    epoch_ms = time.time() - EPOCH_MS_DEFAULT
+    epoch_ms = int(time.time()) * 1000 - EPOCH_MS_DEFAULT
     if not (0 <= epoch_ms < TIMESTAMP_MS_MAX):
         print("overflow")
         return None
